@@ -1,5 +1,5 @@
 import { Box, Container, Divider, Grid, Stack, Typography } from '@mui/material'
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import logo from '~/assets/logo.png'
 import {
   DesktopSidebar,
@@ -13,13 +13,54 @@ import {
   TagPopuler
 } from '~/components'
 import TopNews from '~/components/TopNews'
-import { dummyNews, dummyTags } from '~/helpers'
+import {
+  categories,
+  dummyNews,
+  dummyTags,
+  footerMenus,
+  informasi,
+  jaringanMedia,
+  layanan,
+  menus,
+  mobileMenus,
+  secondMenus
+} from '~/helpers/server'
 import theme from '~/material.theme'
+import { News } from '~/types'
 
-const Home: NextPage = () => {
+interface HomeProps {
+  categories: string[]
+  footerMenus: string[]
+  informasi: string[]
+  jaringanMedia: string[]
+  layanan: string[]
+  news: News[]
+  tags: string[]
+  menus: string[]
+  mobileMenus: string[]
+  secondMenus: string[]
+}
+
+const Home: NextPage<HomeProps> = ({
+  secondMenus,
+  menus,
+  tags,
+  news,
+  layanan,
+  informasi,
+  jaringanMedia,
+  footerMenus,
+  categories,
+  mobileMenus
+}) => {
   return (
     <>
-      <Nav />
+      <Nav
+        categories={categories}
+        informasi={informasi}
+        layanan={layanan}
+        mobileMenus={mobileMenus}
+      />
 
       <Container
         sx={{
@@ -45,7 +86,7 @@ const Home: NextPage = () => {
                 display: 'none'
               }
             }}>
-            <Header />
+            <Header menus={menus} secondMenus={secondMenus} />
           </Grid>
 
           <Grid
@@ -62,7 +103,7 @@ const Home: NextPage = () => {
                 gridTemplate: 'auto / repeat(5, 1fr)',
                 gap: theme.spacing(2)
               }}>
-              {dummyNews(5).map((item, index) => (
+              {news.map((item, index) => (
                 <SmallNewsCard {...item} key={index} />
               ))}
             </Box>
@@ -77,7 +118,7 @@ const Home: NextPage = () => {
         <Grid container columnSpacing={2}>
           <Grid item xs={12} sm={8}>
             <Stack spacing={2}>
-              <Headline {...dummyNews(1)[0]} />
+              <Headline {...news[0]} />
 
               <Box
                 sx={{
@@ -85,7 +126,7 @@ const Home: NextPage = () => {
                     display: 'none'
                   }
                 }}>
-                <TagPopuler tags={dummyTags(5)} />
+                <TagPopuler tags={tags} />
               </Box>
 
               <Divider />
@@ -98,8 +139,8 @@ const Home: NextPage = () => {
                 News Feed
               </Typography>
 
-              <TopNews {...dummyNews(1)[0]} />
-              {dummyNews(4).map((item, index) => (
+              <TopNews {...news[3]} />
+              {news.map((item, index) => (
                 <NewsCard {...item} key={index} />
               ))}
 
@@ -122,7 +163,7 @@ const Home: NextPage = () => {
                   },
                   gap: theme.spacing(2)
                 }}>
-                {dummyNews(5).map((item, index) => (
+                {news.slice(0, 4).map((item, index) => (
                   <SmallNewsCard {...item} key={index} />
                 ))}
               </Box>
@@ -137,14 +178,37 @@ const Home: NextPage = () => {
                 display: 'none'
               }
             }}>
-            <DesktopSidebar />
+            <DesktopSidebar news={news} tags={tags} />
           </Grid>
         </Grid>
       </Container>
 
-      <Footer />
+      <Footer
+        categories={categories}
+        footerMenus={footerMenus}
+        informasi={informasi}
+        jaringanMedia={jaringanMedia}
+        layanan={layanan}
+      />
     </>
   )
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  return {
+    props: {
+      categories,
+      footerMenus,
+      informasi,
+      jaringanMedia,
+      layanan,
+      menus,
+      secondMenus,
+      mobileMenus,
+      news: dummyNews(5),
+      tags: dummyTags(5)
+    }
+  }
+}

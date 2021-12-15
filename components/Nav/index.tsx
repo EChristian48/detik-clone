@@ -10,14 +10,21 @@ import {
   Toolbar,
   Typography
 } from '@mui/material'
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import logoSmall from '~/assets/logo-small.png'
 import logo from '~/assets/logo.png'
-import { categories, informasi, layanan, useToggle } from '~/helpers'
+import { useToggle } from '~/helpers'
 import theme from '~/material.theme'
 import { RoundedButton, SearchInput, StyledImage } from '..'
 import MobileMenus from './MobileMenus'
-export default function Nav() {
+
+export interface NavProps {
+  categories: string[]
+  informasi: string[]
+  layanan: string[]
+  mobileMenus: string[]
+}
+function Component({ layanan, informasi, categories, mobileMenus }: NavProps) {
   const [isDrawerOpen, toggleDrawer] = useToggle(false)
   const buttonOnClick = useCallback(() => toggleDrawer(), [toggleDrawer])
   const drawerOnClose = useCallback(() => toggleDrawer(false), [toggleDrawer])
@@ -111,7 +118,7 @@ export default function Nav() {
           </Toolbar>
         </Container>
 
-        <MobileMenus />
+        <MobileMenus mobileMenus={mobileMenus} />
       </AppBar>
 
       {/* TODO: Make a separate component */}
@@ -215,3 +222,7 @@ export default function Nav() {
     </>
   )
 }
+
+const Nav = memo(Component)
+
+export default Nav

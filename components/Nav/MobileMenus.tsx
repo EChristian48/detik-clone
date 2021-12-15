@@ -1,8 +1,10 @@
 import { Tab, Tabs } from '@mui/material'
-import { mobileMenus } from '~/helpers'
 import theme from '~/material.theme'
 
-export default function MobileMenus() {
+interface MobileMenusProps {
+  mobileMenus: string[]
+}
+export default function MobileMenus({ mobileMenus }: MobileMenusProps) {
   return (
     <Tabs
       variant="scrollable"

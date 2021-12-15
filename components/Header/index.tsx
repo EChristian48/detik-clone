@@ -1,12 +1,17 @@
 import { LiveTv } from '@mui/icons-material'
-import { Box, Stack, Typography } from '@mui/material'
-import { menus, secondMenus } from '~/helpers'
+import { Box, Stack } from '@mui/material'
+import { memo } from 'react'
 import theme from '~/material.theme'
 import HeaderLink from './HeaderLink'
 import HeaderLinksContainer from './HeaderLinksContainer'
 import SecondHeaderLink from './SecondHeaderLink'
 
-export default function Header() {
+export interface HeaderProps {
+  menus: string[]
+  secondMenus: string[]
+}
+
+function Component({ menus, secondMenus }: HeaderProps) {
   return (
     <Box>
       <HeaderLinksContainer direction="row" flexWrap="wrap" spacing={1}>
@@ -35,3 +40,6 @@ export default function Header() {
     </Box>
   )
 }
+
+const Header = memo(Component)
+export default Header

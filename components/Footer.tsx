@@ -6,18 +6,26 @@ import {
   YouTube
 } from '@mui/icons-material'
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
+import { memo } from 'react'
 import logo from '~/assets/logo.png'
-import {
+import theme from '~/material.theme'
+import { StyledImage } from '.'
+
+export interface FooterProps {
+  categories: string[]
+  footerMenus: string[]
+  informasi: string[]
+  jaringanMedia: string[]
+  layanan: string[]
+}
+
+function Component({
   categories,
   footerMenus,
   informasi,
   jaringanMedia,
   layanan
-} from '~/helpers'
-import theme from '~/material.theme'
-import { StyledImage } from '.'
-
-export default function Footer() {
+}: FooterProps) {
   return (
     <Box
       sx={{
@@ -151,3 +159,7 @@ export default function Footer() {
     </Box>
   )
 }
+
+const Footer = memo(Component)
+
+export default Footer
