@@ -1,4 +1,4 @@
-import { Article, Close, LiveTv, Menu } from '@mui/icons-material'
+import { ArrowUpward, Article, Close, LiveTv, Menu } from '@mui/icons-material'
 import {
   AppBar,
   Box,
@@ -21,6 +21,10 @@ export default function Nav() {
   const [isDrawerOpen, toggleDrawer] = useToggle(false)
   const buttonOnClick = useCallback(() => toggleDrawer(), [toggleDrawer])
   const drawerOnClose = useCallback(() => toggleDrawer(false), [toggleDrawer])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <>
@@ -109,6 +113,18 @@ export default function Nav() {
 
         <MobileMenus />
       </AppBar>
+
+      <IconButton
+        color="secondary"
+        onClick={scrollToTop}
+        sx={{
+          position: 'fixed',
+          zIndex: 1,
+          bottom: theme.spacing(2),
+          right: theme.spacing(2)
+        }}>
+        <ArrowUpward />
+      </IconButton>
 
       <Drawer anchor="left" open={isDrawerOpen} onClose={drawerOnClose}>
         <Stack spacing={1} padding={2} minWidth={400}>
