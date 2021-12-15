@@ -114,6 +114,7 @@ export default function Nav() {
         <MobileMenus />
       </AppBar>
 
+      {/* TODO: Make a separate component */}
       <IconButton
         color="secondary"
         onClick={scrollToTop}
@@ -126,6 +127,7 @@ export default function Nav() {
         <ArrowUpward />
       </IconButton>
 
+      {/* TODO: Make a separate component */}
       <Drawer anchor="left" open={isDrawerOpen} onClose={drawerOnClose}>
         <Stack spacing={1} padding={2} minWidth={400}>
           <Typography sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

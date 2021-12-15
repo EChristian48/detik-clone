@@ -90,6 +90,7 @@ const Home: NextPage = () => {
 
               <Divider />
 
+              {/* TODO: Make a separate component */}
               <Typography
                 variant="h6"
                 color="primary"
@@ -104,6 +105,7 @@ const Home: NextPage = () => {
 
               <Divider />
 
+              {/* TODO: Make a separate component */}
               <Typography
                 variant="h6"
                 color="primary"
