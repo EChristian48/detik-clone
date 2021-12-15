@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material'
 
-const defaultTheme = createTheme({
+const theme = createTheme({
   header: {
     default: 'white',
     hover: '#fcc43f',
@@ -12,8 +12,11 @@ const defaultTheme = createTheme({
   palette: {
     primary: {
       main: '#244B9C'
+    },
+    secondary: {
+      main: '#ef672f'
     }
   }
 })
 
-export default defaultTheme
+export default theme
