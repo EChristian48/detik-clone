@@ -1,20 +1,25 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material'
-import faker from 'faker'
+import { memo } from 'react'
 import theme from '~/material.theme'
+import { News } from '~/types'
 
-export default function Headline() {
+export type HeadlineProps = News
+
+function Component({ title, category, img }: HeadlineProps) {
   return (
     <Card
       sx={{
         display: 'grid',
         gridTemplateRows: '1fr',
-        gridTemplateColumns: '1fr'
+        gridTemplateColumns: '1fr',
+        cursor: 'pointer',
+        '&:hover .headline-title': { color: theme.palette.secondary.light }
       }}>
       <CardMedia
         component="img"
-        image={faker.image.image()}
+        image={img}
         alt="green iguana"
-        sx={{ gridArea: '1/1/1/1' }}
+        sx={{ gridArea: '1/1/1/1', maxHeight: 450 }}
       />
       <CardContent
         sx={{
@@ -30,13 +35,22 @@ export default function Headline() {
             paddingTop: theme.spacing(4)
           }
         }}>
-        <Typography variant="h6" fontSize={20} fontWeight={600}>
-          {faker.lorem.sentence()}
+        <Typography
+          variant="h6"
+          fontSize={20}
+          fontWeight={600}
+          className="headline-title"
+          sx={{ transition: 'all 0.3s ease-in-out 0s' }}>
+          {title}
         </Typography>
         <Typography variant="caption">
-          {faker.lorem.word()} | 8 menit yang lalu
+          {category} | 8 menit yang lalu
         </Typography>
       </CardContent>
     </Card>
   )
 }
+
+const Headline = memo(Component)
+
+export default Headline
